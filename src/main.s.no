@@ -1,0 +1,52 @@
+.area _DATA
+.area _CODE
+
+;-> aquí está la macro del cambio de borde
+.include "cpctelera.h.s" 
+
+.globl cpct_disableFirmware_asm
+.globl cpct_setVideoMode_asm
+.globl cpct_setPalette_asm
+.globl cpct_getScreenPtr_asm
+.globl cpct_drawSprite_asm
+
+;el _ es porquee es un simbolo global
+;como todas las referencias a C llevan el _ debajo, pues eso, lo lleva...???????
+.globl _g_palette 
+
+_main::  ;::-> que es global, y main al ser la principal, lo es y lo del _ delante de main es por convencion con C
+    call cpct_disableFirmware_asm ;llamada a la funcion de asm que hace esto
+   
+   ;SET VIDEO MODE
+   ;PARAMETROS:
+   ;([0,1,2,3] C)
+    ld   c, #0 ;hay que poner el 0 en un punto concreto del registro. Input parameters (1Byte) 
+    call cpct_setVideoMode_asm
+
+    ;SET PALETTE
+    ;Parametros: 
+    ;(2B HL) colour_aray
+    ;(2B DE) size [1-16]
+    ld hl, #_g_palette
+    ld de, #16
+    call cpct_setPalette_asm
+
+    ;SET BORDER (está en Macros en la documentacion)
+    ;En este caso no es una instruccion, es una Macro y básicamente una macro es una sustitucion que cambia lo que pone a continucacion 
+    ;por un codigo que cambia el color del borde
+    cpctm_setBorder_asm HW_BLACK
+
+    ;DRAW SPRITE
+    ;Parametros:
+    ;(2B DE) screen_start
+    ;(1B C) x [0-79]
+    ;(1B B) y [0-199]
+    ld de, #CPCT_VMEM_START_ASM
+    ld b, #100
+    ld c, #40
+    call cpct_getScreenPtr_asm ;-> Todo esto deja el sprite en el registro HL = pvmem
+
+    
+    call cpct_drawSprite_asm
+loop:
+    jr loop ;jr es un jump relative y apunta en este caso a si mismo, se hace recursiva

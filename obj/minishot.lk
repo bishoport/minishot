@@ -1,0 +1,16 @@
+-mjwx
+-i obj/minishot.ihx
+-b _CODE = 0x4000
+-b _DATA = 0x0000
+-u
+-k /home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/bin/../share/sdcc/lib/z80
+-k /home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/share/sdcc/lib/z80
+-l /home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/cpctelera.lib
+-l z80
+obj/sprites/shoot.rel
+obj/sprites/enemy.rel
+obj/sprites/nave.rel
+obj/sprites/g_palette.rel
+obj/main.rel
+
+-e
