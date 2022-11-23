@@ -18,21 +18,21 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  l__INITIALIZER                  
      00000000  s__CABS                         
      00000000  s__DABS                         
-     000002EE  l__CODE                         
+     000002FA  l__CODE                         
      00004000  s__CODE                         
-     000042EE  s__DATA                         
-     000042EE  s__GSFINAL                      
-     000042EE  s__GSINIT                       
-     000042EE  s__HOME                         
-     000042EE  s__INITIALIZED                  
-     000042EE  s__INITIALIZER                  
+     000042FA  s__DATA                         
+     000042FA  s__GSFINAL                      
+     000042FA  s__GSINIT                       
+     000042FA  s__HOME                         
+     000042FA  s__INITIALIZED                  
+     000042FA  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000002EE =         750. bytes (REL,CON)
+_CODE                               00004000    000002FA =         762. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -40,17 +40,20 @@ _CODE                               00004000    000002EE =         750. bytes (R
      00004080  _sp_enemy_ship                     enemy
      00004100  _sp_player_ship                    nave
      00004180  _g_palette                         g_palette
-     00004190  _main                              main
-     000041F1  _cpct_setPalette                   cpct_video
-     00004208  _cpct_setPALColour                 cpct_video
-     00004214  _cpct_drawSprite                   cpct_sprites
-     000042B9  _cpct_setVideoMode                 cpct_video
-     000042C7  _cpct_disableFirmware              cpct_firmware
-     000042C7  _cpct_removeInterruptHandler       cpct_firmware
-     000042C7  cpct_disableFirmware_asm           cpct_firmware
-     000042C7  cpct_removeInterruptHandler_asm    cpct_firmware
-     000042D7  _cpct_mode_rom_status              cpct_firmware
-     000042D8  _cpct_getScreenPtr                 cpct_video
+     00004190  _drawPlayer                        main
+     000041A8  _drawEnemy                         main
+     000041C0  _drawShoot                         main
+     000041D8  _main                              main
+     000041FD  _cpct_setPalette                   cpct_video
+     00004214  _cpct_setPALColour                 cpct_video
+     00004220  _cpct_drawSprite                   cpct_sprites
+     000042C5  _cpct_setVideoMode                 cpct_video
+     000042D3  _cpct_disableFirmware              cpct_firmware
+     000042D3  _cpct_removeInterruptHandler       cpct_firmware
+     000042D3  cpct_disableFirmware_asm           cpct_firmware
+     000042D3  cpct_removeInterruptHandler_asm    cpct_firmware
+     000042E3  _cpct_mode_rom_status              cpct_firmware
+     000042E4  _cpct_getScreenPtr                 cpct_video
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 
 Files Linked                              [ module(s) ]
