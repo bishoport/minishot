@@ -13,7 +13,7 @@ enum{
 ,  TRUE = 1
 ,  PLAYER_X = 37
 ,  PLAYER_Y = 200 - SP_PLAYER_SHIP_H
-,  ENEMY_X = 80 - SP_ENEMY_SHIP_W
+,  ENEMY_INIT_X = 80 - SP_ENEMY_SHIP_W
 ,  ENEMY_Y = 10
 ,  SHOT_X = PLAYER_X 
 ,  SHOT_Y = PLAYER_Y - SP_SHOOT_H
@@ -25,8 +25,8 @@ void drawPlayer(){
    cpct_drawSprite(sp_player_ship,pvmen,SP_PLAYER_SHIP_W,SP_PLAYER_SHIP_H);
 }
 
-void drawEnemy(){
-   u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,ENEMY_X,ENEMY_Y);
+void drawEnemy(u8 x){
+   u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,x,ENEMY_Y);
    cpct_drawSprite(sp_enemy_ship,pvmen,SP_ENEMY_SHIP_W,SP_ENEMY_SHIP_H);
 }
 
@@ -38,12 +38,14 @@ void drawShoot(){
 //En el antiguo C no se pueden
 void main(void) {
 
+   u8 posEnemyX = ENEMY_INIT_X;
+
    //DEFINICION DE VARIABLES
-   i8 temperatura             = -8; //Para ir con signo -128 -> 127
-   u8 enemy_x                 = 80; //u8 es notacion de CPCTelera, en C es unsigned int
-   u32 potencia_arma_1        = 25910;//unsigned long en C
-   f32 porcentaje             = 0.43; // 10 E -27, 5*10^27, +6*2⁻15 Usa la notacion cientifica para almacenar decimales tochos //float
-   const char *mensaje_win[]  = "Has ganado!"; //Array de caracteres de solo lectura-> mensaje_win es la direccion de memoria donde empieza
+  // i8 temperatura             = -8; //Para ir con signo -128 -> 127
+  // u8 enemy_x                 = 80; //u8 es notacion de CPCTelera, en C es unsigned int
+  // u32 potencia_arma_1        = 25910;//unsigned long en C
+  // f32 porcentaje             = 0.43; // 10 E -27, 5*10^27, +6*2⁻15 Usa la notacion cientifica para almacenar decimales tochos //float
+  // const char *mensaje_win[]  = "Has ganado!"; //Array de caracteres de solo lectura-> mensaje_win es la direccion de memoria donde empieza
 
 
    cpct_disableFirmware(); //Dejamos de ejecutar el Firmware default del Amstrad (todo bajo nuestro control)
@@ -54,9 +56,17 @@ void main(void) {
 //En el antiguo C no se pueden crear variables a mitad de bloque de funcion. Pero se pueden definir subBloques
 //Los bloques son necesarios para que el compidador tenga en cuenta las vriables al principio, son ambitos o scopes
 
-   drawPlayer();
-   drawEnemy();
-   drawShoot();
    
-   while (TRUE);
+
+   while (TRUE)
+   {
+
+      posEnemyX = posEnemyX - 1;
+
+      drawPlayer();
+      drawEnemy(posEnemyX);
+      drawShoot();
+
+      cpct_waitVSYNC();
+   };
 }

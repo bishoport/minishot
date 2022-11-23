@@ -18,21 +18,21 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  l__INITIALIZER                  
      00000000  s__CABS                         
      00000000  s__DABS                         
-     000002FA  l__CODE                         
+     0000031E  l__CODE                         
      00004000  s__CODE                         
-     000042FA  s__DATA                         
-     000042FA  s__GSFINAL                      
-     000042FA  s__GSINIT                       
-     000042FA  s__HOME                         
-     000042FA  s__INITIALIZED                  
-     000042FA  s__INITIALIZER                  
+     0000431E  s__DATA                         
+     0000431E  s__GSFINAL                      
+     0000431E  s__GSINIT                       
+     0000431E  s__HOME                         
+     0000431E  s__INITIALIZED                  
+     0000431E  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000002FA =         762. bytes (REL,CON)
+_CODE                               00004000    0000031E =         798. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -42,18 +42,21 @@ _CODE                               00004000    000002FA =         762. bytes (R
      00004180  _g_palette                         g_palette
      00004190  _drawPlayer                        main
      000041A8  _drawEnemy                         main
-     000041C0  _drawShoot                         main
-     000041D8  _main                              main
-     000041FD  _cpct_setPalette                   cpct_video
-     00004214  _cpct_setPALColour                 cpct_video
-     00004220  _cpct_drawSprite                   cpct_sprites
-     000042C5  _cpct_setVideoMode                 cpct_video
-     000042D3  _cpct_disableFirmware              cpct_firmware
-     000042D3  _cpct_removeInterruptHandler       cpct_firmware
-     000042D3  cpct_disableFirmware_asm           cpct_firmware
-     000042D3  cpct_removeInterruptHandler_asm    cpct_firmware
-     000042E3  _cpct_mode_rom_status              cpct_firmware
-     000042E4  _cpct_getScreenPtr                 cpct_video
+     000041CF  _drawShoot                         main
+     000041E7  _main                              main
+     00004219  _cpct_setPalette                   cpct_video
+     00004230  _cpct_setPALColour                 cpct_video
+     0000423C  _cpct_drawSprite                   cpct_sprites
+     000042E1  _cpct_waitVSYNC                    cpct_video
+     000042E1  cpct_waitVSYNC_asm                 cpct_video
+     000042E9  _cpct_setVideoMode                 cpct_video
+     000042F7  _cpct_disableFirmware              cpct_firmware
+     000042F7  _cpct_removeInterruptHandler       cpct_firmware
+     000042F7  cpct_disableFirmware_asm           cpct_firmware
+     000042F7  cpct_removeInterruptHandler_asm    cpct_firmware
+     00004307  _cpct_mode_rom_status              cpct_firmware
+     00004308  _cpct_getScreenPtr                 cpct_video
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 
 Files Linked                              [ module(s) ]
@@ -73,6 +76,8 @@ Libraries Linked                          [ object file ]
                                           [ cpct_setPALColour_cbindings.rel ]
 /home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSprite_cbindings.rel ]
+/home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitVSYNC.rel ]
 /home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_cbindings.rel ]
 /home/bishoport/Escritorio/CPCTELERA/cpctelera/cpctelera/cpctelera.lib

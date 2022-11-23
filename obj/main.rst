@@ -15,126 +15,145 @@
                              15 	.globl _cpct_getScreenPtr
                              16 	.globl _cpct_setPALColour
                              17 	.globl _cpct_setPalette
-                             18 	.globl _cpct_setVideoMode
-                             19 	.globl _cpct_drawSprite
-                             20 	.globl _cpct_disableFirmware
-                             21 ;--------------------------------------------------------
-                             22 ; special function registers
-                             23 ;--------------------------------------------------------
+                             18 	.globl _cpct_waitVSYNC
+                             19 	.globl _cpct_setVideoMode
+                             20 	.globl _cpct_drawSprite
+                             21 	.globl _cpct_disableFirmware
+                             22 ;--------------------------------------------------------
+                             23 ; special function registers
                              24 ;--------------------------------------------------------
-                             25 ; ram data
-                             26 ;--------------------------------------------------------
-                             27 	.area _DATA
-                             28 ;--------------------------------------------------------
-                             29 ; ram data
-                             30 ;--------------------------------------------------------
-                             31 	.area _INITIALIZED
-                             32 ;--------------------------------------------------------
-                             33 ; absolute external ram data
-                             34 ;--------------------------------------------------------
-                             35 	.area _DABS (ABS)
-                             36 ;--------------------------------------------------------
-                             37 ; global & static initialisations
-                             38 ;--------------------------------------------------------
-                             39 	.area _HOME
-                             40 	.area _GSINIT
-                             41 	.area _GSFINAL
-                             42 	.area _GSINIT
-                             43 ;--------------------------------------------------------
-                             44 ; Home
-                             45 ;--------------------------------------------------------
-                             46 	.area _HOME
+                             25 ;--------------------------------------------------------
+                             26 ; ram data
+                             27 ;--------------------------------------------------------
+                             28 	.area _DATA
+                             29 ;--------------------------------------------------------
+                             30 ; ram data
+                             31 ;--------------------------------------------------------
+                             32 	.area _INITIALIZED
+                             33 ;--------------------------------------------------------
+                             34 ; absolute external ram data
+                             35 ;--------------------------------------------------------
+                             36 	.area _DABS (ABS)
+                             37 ;--------------------------------------------------------
+                             38 ; global & static initialisations
+                             39 ;--------------------------------------------------------
+                             40 	.area _HOME
+                             41 	.area _GSINIT
+                             42 	.area _GSFINAL
+                             43 	.area _GSINIT
+                             44 ;--------------------------------------------------------
+                             45 ; Home
+                             46 ;--------------------------------------------------------
                              47 	.area _HOME
-                             48 ;--------------------------------------------------------
-                             49 ; code
-                             50 ;--------------------------------------------------------
-                             51 	.area _CODE
-                             52 ;src/main.c:23: void drawPlayer(){
-                             53 ;	---------------------------------
-                             54 ; Function drawPlayer
-                             55 ; ---------------------------------
-   4190                      56 _drawPlayer::
-                             57 ;src/main.c:24: u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,PLAYER_X,PLAYER_Y);
-   4190 21 25 B8      [10]   58 	ld	hl, #0xb825
-   4193 E5            [11]   59 	push	hl
-   4194 21 00 C0      [10]   60 	ld	hl, #0xc000
-   4197 E5            [11]   61 	push	hl
-   4198 CD E4 42      [17]   62 	call	_cpct_getScreenPtr
-                             63 ;src/main.c:25: cpct_drawSprite(sp_player_ship,pvmen,SP_PLAYER_SHIP_W,SP_PLAYER_SHIP_H);
-   419B 01 00 41      [10]   64 	ld	bc, #_sp_player_ship+0
-   419E 11 08 10      [10]   65 	ld	de, #0x1008
-   41A1 D5            [11]   66 	push	de
-   41A2 E5            [11]   67 	push	hl
-   41A3 C5            [11]   68 	push	bc
-   41A4 CD 20 42      [17]   69 	call	_cpct_drawSprite
-   41A7 C9            [10]   70 	ret
-                             71 ;src/main.c:28: void drawEnemy(){
-                             72 ;	---------------------------------
-                             73 ; Function drawEnemy
-                             74 ; ---------------------------------
-   41A8                      75 _drawEnemy::
-                             76 ;src/main.c:29: u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,ENEMY_X,ENEMY_Y);
-   41A8 21 48 0A      [10]   77 	ld	hl, #0x0a48
-   41AB E5            [11]   78 	push	hl
-   41AC 21 00 C0      [10]   79 	ld	hl, #0xc000
-   41AF E5            [11]   80 	push	hl
-   41B0 CD E4 42      [17]   81 	call	_cpct_getScreenPtr
-                             82 ;src/main.c:30: cpct_drawSprite(sp_enemy_ship,pvmen,SP_ENEMY_SHIP_W,SP_ENEMY_SHIP_H);
-   41B3 01 80 40      [10]   83 	ld	bc, #_sp_enemy_ship+0
-   41B6 11 08 10      [10]   84 	ld	de, #0x1008
-   41B9 D5            [11]   85 	push	de
-   41BA E5            [11]   86 	push	hl
-   41BB C5            [11]   87 	push	bc
-   41BC CD 20 42      [17]   88 	call	_cpct_drawSprite
-   41BF C9            [10]   89 	ret
-                             90 ;src/main.c:33: void drawShoot(){
-                             91 ;	---------------------------------
-                             92 ; Function drawShoot
-                             93 ; ---------------------------------
-   41C0                      94 _drawShoot::
-                             95 ;src/main.c:34: u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,SHOT_X,SHOT_Y);
-   41C0 21 25 A8      [10]   96 	ld	hl, #0xa825
-   41C3 E5            [11]   97 	push	hl
-   41C4 21 00 C0      [10]   98 	ld	hl, #0xc000
-   41C7 E5            [11]   99 	push	hl
-   41C8 CD E4 42      [17]  100 	call	_cpct_getScreenPtr
-                            101 ;src/main.c:35: cpct_drawSprite(sp_shoot,pvmen,SP_SHOOT_W,SP_SHOOT_H);
-   41CB 01 00 40      [10]  102 	ld	bc, #_sp_shoot+0
-   41CE 11 08 10      [10]  103 	ld	de, #0x1008
-   41D1 D5            [11]  104 	push	de
-   41D2 E5            [11]  105 	push	hl
-   41D3 C5            [11]  106 	push	bc
-   41D4 CD 20 42      [17]  107 	call	_cpct_drawSprite
-   41D7 C9            [10]  108 	ret
-                            109 ;src/main.c:39: void main(void) {
-                            110 ;	---------------------------------
-                            111 ; Function main
-                            112 ; ---------------------------------
-   41D8                     113 _main::
-                            114 ;src/main.c:41: cpct_disableFirmware(); //Dejamos de ejecutar el Firmware default del Amstrad (todo bajo nuestro control)
-   41D8 CD D3 42      [17]  115 	call	_cpct_disableFirmware
-                            116 ;src/main.c:42: cpct_setVideoMode(0); //Ponemos el Modo de video 0 (4 colores)
-   41DB 2E 00         [ 7]  117 	ld	l, #0x00
-   41DD CD C5 42      [17]  118 	call	_cpct_setVideoMode
-                            119 ;src/main.c:43: cpct_setPalette(g_palette,16);
-   41E0 21 10 00      [10]  120 	ld	hl, #0x0010
-   41E3 E5            [11]  121 	push	hl
-   41E4 21 80 41      [10]  122 	ld	hl, #_g_palette
-   41E7 E5            [11]  123 	push	hl
-   41E8 CD FD 41      [17]  124 	call	_cpct_setPalette
-                            125 ;src/main.c:44: cpct_setBorder(HW_BLACK); //Colores por defecto del sistema
-   41EB 21 10 14      [10]  126 	ld	hl, #0x1410
-   41EE E5            [11]  127 	push	hl
-   41EF CD 14 42      [17]  128 	call	_cpct_setPALColour
-                            129 ;src/main.c:49: drawPlayer();
-   41F2 CD 90 41      [17]  130 	call	_drawPlayer
-                            131 ;src/main.c:50: drawEnemy();
-   41F5 CD A8 41      [17]  132 	call	_drawEnemy
-                            133 ;src/main.c:51: drawShoot();
-   41F8 CD C0 41      [17]  134 	call	_drawShoot
-                            135 ;src/main.c:53: while (TRUE);
-   41FB                     136 00102$:
-   41FB 18 FE         [12]  137 	jr	00102$
-                            138 	.area _CODE
-                            139 	.area _INITIALIZER
-                            140 	.area _CABS (ABS)
+                             48 	.area _HOME
+                             49 ;--------------------------------------------------------
+                             50 ; code
+                             51 ;--------------------------------------------------------
+                             52 	.area _CODE
+                             53 ;src/main.c:23: void drawPlayer(){
+                             54 ;	---------------------------------
+                             55 ; Function drawPlayer
+                             56 ; ---------------------------------
+   4190                      57 _drawPlayer::
+                             58 ;src/main.c:24: u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,PLAYER_X,PLAYER_Y);
+   4190 21 25 B8      [10]   59 	ld	hl, #0xb825
+   4193 E5            [11]   60 	push	hl
+   4194 21 00 C0      [10]   61 	ld	hl, #0xc000
+   4197 E5            [11]   62 	push	hl
+   4198 CD 08 43      [17]   63 	call	_cpct_getScreenPtr
+                             64 ;src/main.c:25: cpct_drawSprite(sp_player_ship,pvmen,SP_PLAYER_SHIP_W,SP_PLAYER_SHIP_H);
+   419B 01 00 41      [10]   65 	ld	bc, #_sp_player_ship+0
+   419E 11 08 10      [10]   66 	ld	de, #0x1008
+   41A1 D5            [11]   67 	push	de
+   41A2 E5            [11]   68 	push	hl
+   41A3 C5            [11]   69 	push	bc
+   41A4 CD 3C 42      [17]   70 	call	_cpct_drawSprite
+   41A7 C9            [10]   71 	ret
+                             72 ;src/main.c:28: void drawEnemy(u8 x){
+                             73 ;	---------------------------------
+                             74 ; Function drawEnemy
+                             75 ; ---------------------------------
+   41A8                      76 _drawEnemy::
+   41A8 DD E5         [15]   77 	push	ix
+   41AA DD 21 00 00   [14]   78 	ld	ix,#0
+   41AE DD 39         [15]   79 	add	ix,sp
+                             80 ;src/main.c:29: u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,x,ENEMY_Y);
+   41B0 3E 0A         [ 7]   81 	ld	a, #0x0a
+   41B2 F5            [11]   82 	push	af
+   41B3 33            [ 6]   83 	inc	sp
+   41B4 DD 7E 04      [19]   84 	ld	a, 4 (ix)
+   41B7 F5            [11]   85 	push	af
+   41B8 33            [ 6]   86 	inc	sp
+   41B9 21 00 C0      [10]   87 	ld	hl, #0xc000
+   41BC E5            [11]   88 	push	hl
+   41BD CD 08 43      [17]   89 	call	_cpct_getScreenPtr
+                             90 ;src/main.c:30: cpct_drawSprite(sp_enemy_ship,pvmen,SP_ENEMY_SHIP_W,SP_ENEMY_SHIP_H);
+   41C0 01 80 40      [10]   91 	ld	bc, #_sp_enemy_ship+0
+   41C3 11 08 10      [10]   92 	ld	de, #0x1008
+   41C6 D5            [11]   93 	push	de
+   41C7 E5            [11]   94 	push	hl
+   41C8 C5            [11]   95 	push	bc
+   41C9 CD 3C 42      [17]   96 	call	_cpct_drawSprite
+   41CC DD E1         [14]   97 	pop	ix
+   41CE C9            [10]   98 	ret
+                             99 ;src/main.c:33: void drawShoot(){
+                            100 ;	---------------------------------
+                            101 ; Function drawShoot
+                            102 ; ---------------------------------
+   41CF                     103 _drawShoot::
+                            104 ;src/main.c:34: u8 *pvmen = cpct_getScreenPtr(CPCT_VMEM_START,SHOT_X,SHOT_Y);
+   41CF 21 25 A8      [10]  105 	ld	hl, #0xa825
+   41D2 E5            [11]  106 	push	hl
+   41D3 21 00 C0      [10]  107 	ld	hl, #0xc000
+   41D6 E5            [11]  108 	push	hl
+   41D7 CD 08 43      [17]  109 	call	_cpct_getScreenPtr
+                            110 ;src/main.c:35: cpct_drawSprite(sp_shoot,pvmen,SP_SHOOT_W,SP_SHOOT_H);
+   41DA 01 00 40      [10]  111 	ld	bc, #_sp_shoot+0
+   41DD 11 08 10      [10]  112 	ld	de, #0x1008
+   41E0 D5            [11]  113 	push	de
+   41E1 E5            [11]  114 	push	hl
+   41E2 C5            [11]  115 	push	bc
+   41E3 CD 3C 42      [17]  116 	call	_cpct_drawSprite
+   41E6 C9            [10]  117 	ret
+                            118 ;src/main.c:39: void main(void) {
+                            119 ;	---------------------------------
+                            120 ; Function main
+                            121 ; ---------------------------------
+   41E7                     122 _main::
+                            123 ;src/main.c:51: cpct_disableFirmware(); //Dejamos de ejecutar el Firmware default del Amstrad (todo bajo nuestro control)
+   41E7 CD F7 42      [17]  124 	call	_cpct_disableFirmware
+                            125 ;src/main.c:52: cpct_setVideoMode(0); //Ponemos el Modo de video 0 (4 colores)
+   41EA 2E 00         [ 7]  126 	ld	l, #0x00
+   41EC CD E9 42      [17]  127 	call	_cpct_setVideoMode
+                            128 ;src/main.c:53: cpct_setPalette(g_palette,16);
+   41EF 21 10 00      [10]  129 	ld	hl, #0x0010
+   41F2 E5            [11]  130 	push	hl
+   41F3 21 80 41      [10]  131 	ld	hl, #_g_palette
+   41F6 E5            [11]  132 	push	hl
+   41F7 CD 19 42      [17]  133 	call	_cpct_setPalette
+                            134 ;src/main.c:54: cpct_setBorder(HW_BLACK); //Colores por defecto del sistema
+   41FA 21 10 14      [10]  135 	ld	hl, #0x1410
+   41FD E5            [11]  136 	push	hl
+   41FE CD 30 42      [17]  137 	call	_cpct_setPALColour
+                            138 ;src/main.c:61: while (TRUE)
+   4201 06 48         [ 7]  139 	ld	b, #0x48
+   4203                     140 00102$:
+                            141 ;src/main.c:64: posEnemyX = posEnemyX - 1;
+   4203 05            [ 4]  142 	dec	b
+                            143 ;src/main.c:66: drawPlayer();
+   4204 C5            [11]  144 	push	bc
+   4205 CD 90 41      [17]  145 	call	_drawPlayer
+   4208 C1            [10]  146 	pop	bc
+                            147 ;src/main.c:67: drawEnemy(posEnemyX);
+   4209 C5            [11]  148 	push	bc
+   420A C5            [11]  149 	push	bc
+   420B 33            [ 6]  150 	inc	sp
+   420C CD A8 41      [17]  151 	call	_drawEnemy
+   420F 33            [ 6]  152 	inc	sp
+   4210 CD CF 41      [17]  153 	call	_drawShoot
+   4213 CD E1 42      [17]  154 	call	_cpct_waitVSYNC
+   4216 C1            [10]  155 	pop	bc
+   4217 18 EA         [12]  156 	jr	00102$
+                            157 	.area _CODE
+                            158 	.area _INITIALIZER
+                            159 	.area _CABS (ABS)

@@ -13,21 +13,23 @@ Symbol Table
     _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
+    _cpct_waitVSYNC                                                **** GX
   0 _drawEnemy                                                     0018 GR
   0 _drawPlayer                                                    0000 GR
-  0 _drawShoot                                                     0030 GR
+  0 _drawShoot                                                     003F GR
     _g_palette                                                     **** GX
-  0 _main                                                          0048 GR
+  0 _main                                                          0057 GR
     _sp_enemy_ship                                                 **** GX
     _sp_player_ship                                                **** GX
     _sp_shoot                                                      **** GX
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   6D   flags    0
+   0 _CODE                                      size   89   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8
